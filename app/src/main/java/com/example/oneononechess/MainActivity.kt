@@ -12,4 +12,13 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.container, MainFragment.newInstance())
             .commit()
     }
+
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "super.onRetainCustomNonConfigurationInstance()",
+        "androidx.appcompat.app.AppCompatActivity"
+    )
+    )
+    override fun onRetainCustomNonConfigurationInstance(): Any? {
+        return super.onRetainCustomNonConfigurationInstance()
+    }
 }

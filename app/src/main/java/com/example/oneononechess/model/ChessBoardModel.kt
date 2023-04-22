@@ -28,8 +28,8 @@ class ChessBoardModel {
         }
         add(ChessPiece(3, 7, ChessPieceColor.WHITE, ChessPieceRank.QUEEN, R.drawable.white_queen))
         add(ChessPiece(3, 0, ChessPieceColor.BLACK, ChessPieceRank.QUEEN, R.drawable.black_queen))
-        add(ChessPiece(7, 7, ChessPieceColor.WHITE, ChessPieceRank.KING, R.drawable.white_king))
-        add(ChessPiece(0, 0, ChessPieceColor.BLACK, ChessPieceRank.KING, R.drawable.black_king))
+        add(ChessPiece(4, 7, ChessPieceColor.WHITE, ChessPieceRank.KING, R.drawable.white_king))
+        add(ChessPiece(4, 0, ChessPieceColor.BLACK, ChessPieceRank.KING, R.drawable.black_king))
     }
 
     private fun pieceAt(row: Int, col: Int): ChessPiece? {
@@ -45,7 +45,7 @@ class ChessBoardModel {
             if (capturedPiece.color == movingPiece.color) {
                 piecesBox.add(movingPiece)
             } else {
-                piecesBox.remove(pieceAt(toRow, toCol))
+                piecesBox.remove(pieceAt(toRow, toCol)) //TODO why????
                 piecesBox.add(ChessPiece(toCol, toRow, movingPiece.color, movingPiece.rank, movingPiece.resId))
             }
         } else {

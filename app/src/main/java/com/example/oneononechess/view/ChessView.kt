@@ -2,9 +2,11 @@ package com.example.oneononechess.view
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.graphics.drawable.toDrawable
 import com.example.oneononechess.model.entity.ChessPiece
 
 class ChessView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
