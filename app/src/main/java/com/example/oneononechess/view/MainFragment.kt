@@ -36,6 +36,10 @@ class MainFragment : Fragment(), ChessViewInterface{
         val observer = Observer<BoardModel>{setBoard(it)}
         liveData.observe(viewLifecycleOwner, observer)
         viewModel.getChessBoard()
+
+        binding.resetBtn.setOnClickListener {
+            viewModel.getNewBoard()
+        }
     }
 
     private fun setBoard(boardModel : BoardModel){

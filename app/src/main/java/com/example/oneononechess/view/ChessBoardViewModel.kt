@@ -28,4 +28,9 @@ class ChessBoardViewModel(private val boardApi: ChessBoardApi) : ViewModel() {
         boardApi.removePiece(row, col)
         getChessBoardFromLocalStorage()
     }
+
+    fun getNewBoard() {
+        boardApi.reset()
+        getChessBoardFromLocalStorage()
+    }
 }
