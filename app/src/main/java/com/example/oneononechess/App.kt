@@ -12,10 +12,10 @@ class App : Application() {
     val boardViewModel by lazy { ChessBoardViewModel(api) }
 }
 
-/*val Context.app: App
+val Context.app: App
 get() {
     return applicationContext as App
-}*/
+}
 
 val Fragment.app: App
 get() = requireActivity().application as App
