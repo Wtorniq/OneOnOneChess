@@ -1,11 +1,12 @@
 package com.example.oneononechess.model
 
 import com.example.oneononechess.R
+import com.example.oneononechess.model.entity.BoardModel
 import com.example.oneononechess.model.entity.ChessPiece
 import com.example.oneononechess.model.entity.ChessPieceColor
 import com.example.oneononechess.model.entity.ChessPieceRank
 
-class ChessBoardModel {
+class ChessBoardApiImpl: ChessBoardApi {
     private val piecesBox = mutableSetOf<ChessPiece>()
     private val board = arrayListOf(arrayListOf<ChessPiece?>())
     init {
@@ -39,7 +40,7 @@ class ChessBoardModel {
         return null
     }
 
-    fun regularMove(movingPiece: ChessPiece, toRow: Int, toCol: Int){
+    override fun regularMove(movingPiece: ChessPiece, toRow: Int, toCol: Int){
         val capturedPiece = pieceAt(toRow, toCol)
         if (capturedPiece != null){
             if (capturedPiece.color == movingPiece.color) {
@@ -53,18 +54,18 @@ class ChessBoardModel {
         }
     }
 
-    fun removePiece(row: Int, col: Int) {
+    override fun removePiece(row: Int, col: Int) {
         val movingPiece = pieceAt(row, col) ?: return
         piecesBox.remove(movingPiece)
     }
 
-    fun getChessBoard(): ArrayList<ArrayList<ChessPiece?>>{
+    override fun getChessBoard(): BoardModel {
         board.clear()
-        for (row in 7 downTo 0){
+        for (row in 7 downTo 0) {
             val rowArrayList = arrayListOf<ChessPiece?>()
-            for (col in 0..7){
+            for (col in 0..7) {
                 val piece = pieceAt(row, col)
-                if (piece == null){
+                if (piece == null) {
                     rowArrayList.add(null)
                 } else {
                     rowArrayList.add(piece)
@@ -72,7 +73,7 @@ class ChessBoardModel {
             }
             board.add(rowArrayList)
         }
-        return board
+        return BoardModel(board)
     }
 
 }

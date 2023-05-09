@@ -2,11 +2,10 @@ package com.example.oneononechess.view
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.graphics.drawable.toDrawable
+import com.example.oneononechess.model.entity.BoardModel
 import com.example.oneononechess.model.entity.ChessPiece
 
 class ChessView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -25,33 +24,10 @@ class ChessView(context: Context, attributeSet: AttributeSet) : View(context, at
     private var movingY = -1f
     private var movingX = -1f
     private var movingPiece: ChessPiece? = null
-//    private val resIdSet = setOf(
-//        R.drawable.white_king,
-//        R.drawable.white_queen,
-//        R.drawable.white_bishop,
-//        R.drawable.white_knight,
-//        R.drawable.white_pawn,
-//        R.drawable.white_rook,
-//        R.drawable.black_bishop,
-//        R.drawable.black_king,
-//        R.drawable.black_knight,
-//        R.drawable.black_pawn,
-//        R.drawable.black_queen,
-//        R.drawable.black_rook
-//    )
-//    private val bitmaps = mutableMapOf<Int, Bitmap>()
 
-//    init {
-//        loadBitmaps()
-//    }
-
-    //    private fun loadBitmaps(){
-//        resIdSet.forEach{
-//            bitmaps[it] = BitmapFactory.decodeResource(resources, it)
-//        }
-
-    fun setBoard(addedBoard: ArrayList<ArrayList<ChessPiece?>>){
-        board = addedBoard
+    fun setBoard(addedBoard: BoardModel){
+        board = addedBoard.board
+        invalidate()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -70,33 +46,6 @@ class ChessView(context: Context, attributeSet: AttributeSet) : View(context, at
         buildChessBoard(canvas)
         drawPieces(canvas)
     }
-
-/*    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        event ?: return false
-        when (event.action){
-            MotionEvent.ACTION_DOWN -> {
-                fromCol = ((event.x - boardLeft) / squareSize).toInt()
-                fromRow = ((event.y - boardTop) / squareSize).toInt()
-                try {
-                    movingPiece = model[7 - fromRow][fromCol]
-                    chessViewInterface?.onRemovePiece(fromRow, fromCol)
-                } catch (e: Throwable){return false}
-            }
-            MotionEvent.ACTION_MOVE -> {
-                movingY = event.y
-                movingX = event.x - squareSize / 2
-                invalidate()
-            }
-            MotionEvent.ACTION_UP -> {
-                val toCol = ((event.x - boardLeft) / squareSize).toInt()
-                val toRow = ((event.y - boardTop) / squareSize).toInt()
-                movingPiece ?: return false
-                chessViewInterface?.onRegularMove(movingPiece!!, toRow, toCol)
-                movingPiece = null
-            }
-        }
-        return true
-    }*/
 
     private fun drawPieces(canvas: Canvas){
         board.forEach { row ->
@@ -119,6 +68,8 @@ class ChessView(context: Context, attributeSet: AttributeSet) : View(context, at
                     } catch (e: Throwable){
                         return@setOnTouchListener false
                     }
+                    movingX = event.x
+                    movingY = event.y
                 }
                 MotionEvent.ACTION_MOVE -> {
                     movingY = event.y
